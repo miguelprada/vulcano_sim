@@ -84,7 +84,6 @@ catkin_package(
 #############
 
 install(DIRECTORY launch DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
-install(DIRECTORY controller DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 
 # all install targets should use catkin DESTINATION variables
