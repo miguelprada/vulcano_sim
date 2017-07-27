@@ -4,10 +4,9 @@
   <!-- roslaunch arguments -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
-  <arg name="gazebo_world" default="vulcano"/>
+  <arg name="gazebo_world" default="Thomas"/>
 
 
-           
 
   <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
