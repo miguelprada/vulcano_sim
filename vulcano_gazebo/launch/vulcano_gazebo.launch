@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <launch>
 
-  <!-- roslaunch arguments -->
+  <!-- roslaunch arguments  -->
   <arg name="debug" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="gazebo_world" default="Thomas"/>
