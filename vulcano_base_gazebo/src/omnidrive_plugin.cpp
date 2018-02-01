@@ -342,14 +342,14 @@ namespace gazebo {
 	 gzthrow(error);
    }
 
-    joints_[FRONT_LEFT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[FRONT_RIGHT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[BACK_LEFT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[BACK_RIGHT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[FRONT_LEFT_MW]->SetMaxForce(0, motor_wheel_torque_);
-    joints_[FRONT_RIGHT_MW]->SetMaxForce(0, motor_wheel_torque_);
-    joints_[BACK_LEFT_MW]->SetMaxForce(0, motor_wheel_torque_);
-    joints_[BACK_RIGHT_MW]->SetMaxForce(0, motor_wheel_torque_);
+    joints_[FRONT_LEFT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[FRONT_RIGHT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[BACK_LEFT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[BACK_RIGHT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[FRONT_LEFT_MW]->SetEffortLimit(0, motor_wheel_torque_);
+    joints_[FRONT_RIGHT_MW]->SetEffortLimit(0, motor_wheel_torque_);
+    joints_[BACK_LEFT_MW]->SetEffortLimit(0, motor_wheel_torque_);
+    joints_[BACK_RIGHT_MW]->SetEffortLimit(0, motor_wheel_torque_);
 
     // Make sure the ROS node for Gazebo has already been initialized
     if (!ros::isInitialized())
@@ -405,27 +405,27 @@ namespace gazebo {
     v_ref_x_ = 0;
     v_ref_y_ = 0;
     w_ref_ = 0;    
-    joints_[FRONT_LEFT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[FRONT_RIGHT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[BACK_LEFT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[BACK_RIGHT_W]->SetMaxForce(0, wheel_torque_);
-    joints_[FRONT_LEFT_MW]->SetMaxForce(0, motor_wheel_torque_);
-    joints_[FRONT_RIGHT_MW]->SetMaxForce(0, motor_wheel_torque_);
-    joints_[BACK_LEFT_MW]->SetMaxForce(0, motor_wheel_torque_);
-    joints_[BACK_RIGHT_MW]->SetMaxForce(0, motor_wheel_torque_);
+    joints_[FRONT_LEFT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[FRONT_RIGHT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[BACK_LEFT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[BACK_RIGHT_W]->SetEffortLimit(0, wheel_torque_);
+    joints_[FRONT_LEFT_MW]->SetEffortLimit(0, motor_wheel_torque_);
+    joints_[FRONT_RIGHT_MW]->SetEffortLimit(0, motor_wheel_torque_);
+    joints_[BACK_LEFT_MW]->SetEffortLimit(0, motor_wheel_torque_);
+    joints_[BACK_RIGHT_MW]->SetEffortLimit(0, motor_wheel_torque_);
   }
 
   // Update the controller
   void OmniDrivePlugin::UpdateChild()
   {
     for (int i = 0;i < 4; i++){
-	if ( fabs(wheel_torque_ -joints_[i]->GetMaxForce ( 0 )) > 1e-6 ) 
-	  joints_[i]->SetMaxForce ( 0, wheel_torque_ );
+	if ( fabs(wheel_torque_ -joints_[i]->GetEffortLimit ( 0 )) > 1e-6 )
+	  joints_[i]->SetEffortLimit ( 0, wheel_torque_ );
       }
 
     for (int i = 4;i < 8; i++){
-	if ( fabs(motor_wheel_torque_ -joints_[i]->GetMaxForce ( 0 )) > 1e-6 ) 
-	  joints_[i]->SetMaxForce ( 0, motor_wheel_torque_ );
+	if ( fabs(motor_wheel_torque_ -joints_[i]->GetEffortLimit ( 0 )) > 1e-6 )
+	  joints_[i]->SetEffortLimit ( 0, motor_wheel_torque_ );
       }
    
     UpdateOdometryEncoder();
@@ -452,10 +452,10 @@ namespace gazebo {
                 joint_reference_[BACK_RIGHT_W] / (wheel_diameter_ / 2.0)
                 );
       */      
-      joints_[FRONT_LEFT_MW]->SetAngle(0, joint_reference_[FRONT_LEFT_MW]);
-      joints_[FRONT_RIGHT_MW]->SetAngle(0, joint_reference_[FRONT_RIGHT_MW]);
-      joints_[BACK_LEFT_MW]->SetAngle(0, joint_reference_[BACK_LEFT_MW]);
-      joints_[BACK_RIGHT_MW]->SetAngle(0, joint_reference_[BACK_RIGHT_MW]);
+      joints_[FRONT_LEFT_MW]->SetPosition(0, joint_reference_[FRONT_LEFT_MW]);
+      joints_[FRONT_RIGHT_MW]->SetPosition(0, joint_reference_[FRONT_RIGHT_MW]);
+      joints_[BACK_LEFT_MW]->SetPosition(0, joint_reference_[BACK_LEFT_MW]);
+      joints_[BACK_RIGHT_MW]->SetPosition(0, joint_reference_[BACK_RIGHT_MW]);
      
       last_update_time_+= common::Time(update_period_);
       }
